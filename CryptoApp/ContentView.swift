@@ -10,10 +10,17 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Image(systemName: "bitcoinsign.circle.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200 , height: 200)
+                .foregroundStyle(Color.black )
+                
+            Text("Crypto App")
+                .font(.largeTitle)
+                .fontWeight(.heavy)
+                
+           
         }
         .padding()
     }
