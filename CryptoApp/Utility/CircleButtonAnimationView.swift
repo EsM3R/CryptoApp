@@ -16,7 +16,7 @@ struct CircleButtonAnimationView: View {
             .stroke(lineWidth: 5)
             .scale(isAnimating ?  1.0  : 0.0)
             .opacity(isAnimating ?  0.0  :  1.0)
-            .animation(isAnimating ? .easeOut(duration: 0.5) : .none)
+            .animation(isAnimating ? .easeOut(duration: 0.5) : .none , value : isAnimating)
             .onAppear{
                 isAnimating.toggle()
             }

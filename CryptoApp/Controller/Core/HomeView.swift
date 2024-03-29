@@ -9,31 +9,91 @@ import SwiftUI
 
 struct HomeView : View {
     
-    @State private var isShowPortfolio : Bool = false
+    @EnvironmentObject var homeViewModel : HomeViewModel
     
-    @State private var value : Double =  0
+    @State private var showPortfolio : Bool = false
+
     
     var body: some View {
         
         ZStack{
-            Color.theme.background
+            
+            Color.theme.background.ignoresSafeArea()
+           
             VStack{
                 
-                NavbarView(isShowPortfolio: $isShowPortfolio)
+                NavbarView(isShowPortfolio: $showPortfolio)
+ 
+                SearchBarView(searchText: $homeViewModel.searchText)
                 
-                ForEach(1 ... 10 , id : \.self){_ in
-                    CoinRowView(coin: DeveloperPreview.instance.coin)
-                        .padding(5)
+                Spacer()
+                
+                subHeader
+                
+                if !showPortfolio{
+                    allCoinsList
+                        .transition(.move(edge: .leading))
+                }
+                if showPortfolio{
+                    portfolioCoinsList
+                        .transition(.move(edge: .trailing))
                 }
                 
-               
-               
                 Spacer()
+            
             }
         }
     }
 }
 
 #Preview {
-    HomeView()
+    ContentView()
+}
+
+extension HomeView{
+    
+    private var allCoinsList : some View{
+        List{
+            ForEach(homeViewModel.allCoins){ coin in
+                CoinRowView(coin: coin,isShowHoldingColumn: false)
+                  
+                    
+                
+            }
+            
+        }
+        .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+        .listStyle(.plain)
+    }
+    
+    private var portfolioCoinsList : some View{
+        List{
+            ForEach(homeViewModel.portfolioCoins){ coin in
+                CoinRowView(coin: coin)
+                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                   
+                
+            }
+        }
+        .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+        .listStyle(.plain)
+    }
+    
+    private var subHeader : some View {
+        HStack{
+            Text("Coin")
+            Spacer()
+            if showPortfolio{
+                Text("Holdings")
+            }
+          
+            Text("Price")
+                .frame(width: UIScreen.main.bounds.width / 3.5  , alignment: .trailing)
+        }
+        .font(.caption)
+        .foregroundStyle(Color.theme.secondary)
+        .padding(.horizontal)
+        .padding()
+
+    }
 }

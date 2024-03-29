@@ -22,13 +22,13 @@ extension Color {
 
 struct ColorTheme {
     
-    let accent = Color("AccentColor")
+    let accent = Color.accentColor
     
-    let background = Color("BackgroundColor")
+    let background = Color.customBackground
     
-    let green = Color("GreenColor")
+    let green = Color.green
     
-    let red =  Color("RedColor")
+    let red =  Color.red
     
-    let secondary = Color("SecondaryTextColor")
+    let secondary = Color.customSecondaryText
 }

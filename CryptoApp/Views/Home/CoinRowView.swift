@@ -38,14 +38,32 @@ struct CoinRowView: View {
 extension CoinRowView {
     
     private var leftColumn : some View{
-        HStack{
+        HStack(spacing : 6){
             Text("\(coin.rank)")
                 .font(.caption)
                 .foregroundStyle(Color.theme.secondary)
                 .frame(minWidth: 30)
             
-            Circle()
-                .frame(width: 30, height: 30)
+        
+            AsyncImage(url: URL(string: coin.image)){phase in
+                switch phase {
+                case .empty:
+                    Circle()
+                        .frame(width: 30)
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 30, height: 30)
+                        .clipShape(.circle)
+                case .failure(let error):
+                    Circle()
+                        .frame(width: 30)
+                @unknown default:
+                    fatalError("Some error imaga not downloaded")
+                }
+            }
+            
             
             Text("\(coin.symbol.uppercased())")
                 .font(.headline)
