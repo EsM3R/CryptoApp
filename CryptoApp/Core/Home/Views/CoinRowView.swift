@@ -44,25 +44,7 @@ extension CoinRowView {
                 .foregroundStyle(Color.theme.secondary)
                 .frame(minWidth: 30)
             
-        
-            AsyncImage(url: URL(string: coin.image)){phase in
-                switch phase {
-                case .empty:
-                    Circle()
-                        .frame(width: 30)
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 30, height: 30)
-                        .clipShape(.circle)
-                case .failure(let error):
-                    Circle()
-                        .frame(width: 30)
-                @unknown default:
-                    fatalError("Some error imaga not downloaded")
-                }
-            }
+            AsyncImageForCoin(url: coin.image, circleImageSize: 30)
             
             
             Text("\(coin.symbol.uppercased())")
@@ -73,9 +55,9 @@ extension CoinRowView {
     }
     private var centerColumn : some View {
         VStack(alignment: .leading){
-            Text(coin.currentHoldingsValue.asCurrencyWithDecimal())
+            Text(coin.currentHoldingsValue.asCurrencyWith2Decimals())
                 .bold()
-            Text(coin.currentHoldings?.asPercentSrting() ?? "")
+            Text(coin.currentHoldings?.asPercentString() ?? "")
             
         }
         .foregroundStyle(Color.theme.accent)
@@ -85,11 +67,11 @@ extension CoinRowView {
         
         VStack(alignment: .trailing){
             
-            Text(coin.currentPrice.asCurrencyWithDecimal())
+            Text(coin.currentPrice.asCurrencyWith2Decimals())
                 .bold()
                 
             
-            Text(coin.priceChangePercentage24H?.asPercentSrting() ?? "")
+            Text(coin.priceChangePercentage24H?.asPercentString() ?? "")
                 .foregroundStyle(
                     coin.priceChangePercentage24H ?? 0 >= 0 ?
                     Color.green : Color.red)
