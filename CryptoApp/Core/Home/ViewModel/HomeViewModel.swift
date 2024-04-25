@@ -5,26 +5,23 @@
 //  Created by Mehmet Vural on 28.03.2024.
 //
 
-import Foundation
+import SwiftUI
+import SwiftData
 
-
-class HomeViewModel : ObservableObject{
+@Observable class HomeViewModel{
     
-    
-    @Published var stats : [StatisticModel] = [
+    var stats : [StatisticModel] = [
         .init(title: "Title", value: "Value" ,percentChanges: 1),
         .init(title: "Title", value: "Value" ),
         .init(title: "Title", value: "Value" ,percentChanges: nil),
         .init(title: "Title", value: "Value" ,percentChanges: -1)
     ]
     
-    @Published var allCoins : [CoinModel] = []
+    var allCoins : [CoinModel] = []
     
     private var allStroedCoins : [CoinModel] = []
-    
-    @Published var portfolioCoins : [CoinModel] = [DeveloperPreview.instance.coin]
-    
-    @Published var searchText : String = "" {
+        
+    var searchText : String = "" {
         didSet{
             if searchText.isEmpty{
                 self.allCoins = allStroedCoins
@@ -34,10 +31,16 @@ class HomeViewModel : ObservableObject{
             }
         }
     }
-
+    
     
     init(){
+        getAllData()
+    }
+    
+    
+    func getAllData(){
         getAllCoins()
+        getMarketData()
     }
     
     func getAllCoins(){
@@ -48,17 +51,20 @@ class HomeViewModel : ObservableObject{
                 self.allCoins = allCoins
                 self.allStroedCoins = allCoins
             }
-           
+            
         } onFailure: { error in
-            print("Something went wrong")
+            fatalError("\(error.localizedDescription)")
         }
         
-        MarketDataService.shared.getMarketData { datas in
-            
+  
+    }
+    
+    func getMarketData() {
+        
+        MarketDataService.shared.getMarketData { data in
             self.stats = []
-            
             DispatchQueue.main.async {
-                datas.data.map { market in
+                data.data.map { market in
                     let marketCap = StatisticModel(title: "Market Cap", value: market.marketCap, percentChanges: market.marketCapChangePercentage24HUsd)
                     let volume = StatisticModel(title: "24h Volume", value: market.volume)
                     let btcDominance = StatisticModel(title: "BTC Dominance", value: market.btcDominance)
@@ -67,10 +73,10 @@ class HomeViewModel : ObservableObject{
                     self.stats.append(contentsOf: [marketCap ,volume ,  btcDominance , portfolio])
                 }
             }
-           
+            
         } onFailure: { error in
-            print("Something went wrong")
-        
+            fatalError("\(error.localizedDescription)")
+            
         }
     }
     

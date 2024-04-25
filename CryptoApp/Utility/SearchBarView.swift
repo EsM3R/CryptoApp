@@ -8,36 +8,40 @@
 import SwiftUI
 
 struct SearchBarView: View {
-
-    @Binding var searchText : String
+    
+    @Environment(HomeViewModel.self) private var homeViewModel
+    @State private var searchText : String = ""
     
     var body: some View {
         
         HStack(spacing : 0){
             
             Image(systemName: "magnifyingglass")
-                .foregroundStyle(searchText.isEmpty ? Color.theme.secondary : Color.theme.accent)
+                .foregroundStyle(homeViewModel.searchText.isEmpty ? Theme.color.secondaryColor : Theme.color.accentColor)
                 
             TextField("Search by name or symbol", text: $searchText)
                 .autocorrectionDisabled()
-                .foregroundStyle(Color.theme.accent)
+                .foregroundStyle(Theme.color.accentColor)
                 .padding(.leading,5)
                 .overlay(alignment: .trailing) {
                     
                     Image(systemName: "xmark.circle.fill")
                         .font(.title3)
-                        .foregroundStyle(Color.theme.accent)
+                        .foregroundStyle(Theme.color.accentColor)
                         .onTapGesture {
-                            self.searchText = ""
+                            self.homeViewModel.searchText = ""
                         }
                 }
         }
+
+        .onChange(of: searchText ,{
+            homeViewModel.searchText =  self.searchText
+        })
         .font(.headline)
         .padding()
-        .background(Color.theme.background)
+        .background(Theme.color.backgroundColor)
         .clipShape(.capsule)
-        .shadow(color : Color.theme.accent.opacity(0.2),radius: 10)
-        .padding()
+        .shadow(color : Theme.color.accentColor.opacity(0.2),radius: 10)
     }
 }
 

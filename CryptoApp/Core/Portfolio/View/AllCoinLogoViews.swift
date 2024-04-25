@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AllCoinLogoViews: View {
     
-    @EnvironmentObject private var homeViewModel : HomeViewModel
+    @Environment(HomeViewModel.self) var homeViewModel
     @Binding var selectedCoin : CoinModel?
     var body: some View {
         

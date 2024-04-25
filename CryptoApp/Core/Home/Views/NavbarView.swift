@@ -64,7 +64,7 @@ struct NavbarView: View {
             Text(isShowPortfolio  ? ShowPortfolio.portfolio.getTitleName : ShowPortfolio.livePrices.getTitleName)
                 .font(.headline)
                 .fontWeight(.heavy)
-                .foregroundStyle(Color.theme.accent)
+                .foregroundStyle(Theme.color.accentColor)
                 .animation(.none)
             
             Spacer()

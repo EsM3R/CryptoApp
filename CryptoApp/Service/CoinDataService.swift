@@ -15,9 +15,12 @@ class CoinDataService {
     private init(){}
     
     func getAllCoins(onSuccess : @escaping ([CoinModel]) -> Void , onFailure : @escaping (Error) -> Void){
-        guard let url = URL(string: "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=24h")else {return}
-
         
+        let urlString : String = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=true&price_change_percentage=24h"
+        
+        
+        guard let url = URL(string: urlString  )else {return}
+
         let task = URLSession.shared.dataTask(with: url) { data, _ , error in
 
             guard let data = data , error == nil else {return}
@@ -29,6 +32,7 @@ class CoinDataService {
                 onFailure(error)
             }
         }
+        
         task.resume()
     }
 }

@@ -15,12 +15,12 @@ struct StatisticView: View {
         VStack(alignment : .leading){
             Text(stat.title)
                 .font(.caption)
-                .foregroundStyle(Color.theme.secondary)
+                .foregroundStyle(Theme.color.secondaryColor)
                 
             
             Text(stat.value)
                 .font(.headline)
-                .foregroundStyle(Color.theme.accent)
+                .foregroundStyle(Theme.color.accentColor)
         
             HStack(spacing : 2){
                 Image(systemName: "triangle.fill")
@@ -29,15 +29,15 @@ struct StatisticView: View {
                 
                 Text("\(stat.percentChanges?.asPercentString() ?? "")")
             }
-            .foregroundStyle(stat.percentChanges ?? 0 >= 0 ? Color.theme.green : Color.theme.red)
+            .foregroundStyle(stat.percentChanges ?? 0 >= 0 ? Theme.color.greenColor : Theme.color.redColor)
             .opacity(stat.percentChanges == nil ? 0.0 : 1.0)
             
         }
         
     }
 }
-
-#Preview {
-    StatisticView(stat: DeveloperPreview.instance.stat1)
-   
-}
+//
+//#Preview {
+//    StatisticView(stat: DeveloperPreview.instance.stat1)
+//   
+//}

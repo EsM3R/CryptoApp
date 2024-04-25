@@ -7,18 +7,14 @@
 
 import SwiftUI
 
+
 struct PortfolioCoinListView: View {
     
-    @EnvironmentObject private var homeViewModel : HomeViewModel
-    
+    @Environment(HomeViewModel.self) private var homeViewModel
+
     var body: some View {
         List{
-            ForEach(homeViewModel.portfolioCoins){ coin in
-                CoinRowView(coin: coin)
-                    .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 20))
-                   
-                
-            }
+            
         }
         .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
         .listStyle(.plain)
@@ -26,5 +22,5 @@ struct PortfolioCoinListView: View {
 }
 
 #Preview {
-    PortfolioCoinListView()
+    ContentView()
 }

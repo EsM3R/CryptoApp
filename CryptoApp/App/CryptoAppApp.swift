@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
+
 
 @main
 struct CryptoAppApp: App {
+
     var body: some Scene {
+        
         WindowGroup {
+            
            ContentView()
         }
     }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PortfolioView: View {
     
-    @EnvironmentObject private var homeViewModel : HomeViewModel
+    @Environment(HomeViewModel.self) private var homeViewModel
     @State private var selectedCoin : CoinModel? = nil
     @State private var quantityText : String = ""
 
@@ -24,7 +24,7 @@ struct PortfolioView: View {
                 
                 TitleView()
                 
-                SearchBarView(searchText: $homeViewModel.searchText)
+                SearchBarView()
                 
                 AllCoinLogoViews(selectedCoin: $selectedCoin)
                 

@@ -10,20 +10,29 @@ import SwiftUI
 
 
 
-extension Color {
+class ColorTheme {
     
-    static let theme = ColorTheme()
+    var accentColor: Color = Color.accentColor
+    
+    var backgroundColor: Color = Color.customBackground
+    
+    var greenColor: Color = Color.customGreen
+    
+    var redColor: Color = Color.customGreen
+    
+    var secondaryColor: Color = Color.customSecondaryText
+    
+    
 }
 
-struct ColorTheme {
+
+class Theme {
     
-    let accent = Color.accentColor
+    static let color :  ColorTheme =  ColorTheme()
     
-    let background = Color.customBackground
-    
-    let green = Color.green
-    
-    let red =  Color.red
-    
-    let secondary = Color.customSecondaryText
 }
+
+
+
+
+

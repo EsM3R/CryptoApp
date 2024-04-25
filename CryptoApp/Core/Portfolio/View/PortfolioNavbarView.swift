@@ -9,33 +9,13 @@ import SwiftUI
 
 struct PortfolioNavbarView: View {
     
-    @EnvironmentObject private var homeViewModel : HomeViewModel
+    @Environment(\.modelContext) var modelContext
+    @Environment(HomeViewModel.self) private var homeViewModel
     @State private var showCheckmark : Bool = false
     @Binding  var selectedCoin : CoinModel?
     @Binding  var quantityText : String
     
-    
-    private func saveButtonPressed(){
-        
-        guard let selectedCoin else {return}
-    
-        withAnimation {
-            showCheckmark = true
-            removeSelectionCoin()
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            showCheckmark = false
-        }
-        
-    }
-    private func removeSelectionCoin(){
-        selectedCoin =  nil
-        homeViewModel.searchText = ""
-        
-    }
 
-    
     var body: some View {
         HStack{
             
@@ -58,5 +38,25 @@ struct PortfolioNavbarView: View {
             }
         
         }
+    }
+    
+    private func saveButtonPressed(){
+        
+//        guard let selectedCoin else {return}
+    
+        withAnimation {
+            showCheckmark = true
+            removeSelectionCoin()
+        }
+            
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            showCheckmark = false
+        }
+        
+    }
+    private func removeSelectionCoin(){
+        selectedCoin =  nil
+        homeViewModel.searchText = ""
+        
     }
 }

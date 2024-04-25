@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject private var homeViewModel : HomeViewModel = HomeViewModel()
+    @State private var homeViewModel : HomeViewModel = HomeViewModel()
     
     var body: some View {
         NavigationStack{
             HomeView()
         }
         .navigationBarBackButtonHidden()
-        .environmentObject(homeViewModel)
+        .environment(homeViewModel)
     }
 }
 

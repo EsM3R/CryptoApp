@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView : View {
     
-    @EnvironmentObject var homeViewModel : HomeViewModel
+    @Environment(HomeViewModel.self) private var homeViewModel
     
     @State private var showPortfolio : Bool = false
     
@@ -17,7 +17,7 @@ struct HomeView : View {
     var body: some View {
     
         ZStack{
-            Color.theme.background.ignoresSafeArea()
+            Theme.color.backgroundColor.ignoresSafeArea()
             
             VStack{
                 
@@ -27,7 +27,8 @@ struct HomeView : View {
                 HomeStatsView(showPortfolio: $showPortfolio)
                     .padding(.horizontal)
                 
-                SearchBarView(searchText: $homeViewModel.searchText)
+                SearchBarView()
+                    .padding(.horizontal)
                     .padding(.horizontal)
                 
                 

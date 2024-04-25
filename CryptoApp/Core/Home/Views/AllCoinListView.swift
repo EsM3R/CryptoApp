@@ -9,13 +9,15 @@ import SwiftUI
 
 struct AllCoinListView: View {
     
-    @EnvironmentObject private var homeViewModel : HomeViewModel
+    @Environment(HomeViewModel.self) private var homeViewModel
     
     var body: some View {
         List{
-            
+      
             ForEach(homeViewModel.allCoins){ coin in
-                CoinRowView(coin: coin,isShowHoldingColumn: false)
+                
+                CoinRowView(coin : coin,
+                            isShowHoldingColumn: false)
                 
             }
             

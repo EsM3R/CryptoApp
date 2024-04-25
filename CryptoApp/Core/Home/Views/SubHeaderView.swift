@@ -10,9 +10,11 @@ import SwiftUI
 struct SubHeaderView: View {
     
     @Binding var showPortfolio : Bool
+    
     private let coinText : String = "Coin"
     private let priceText : String = "Price"
     private let holdingText  : String = "Holdings"
+    
     var body: some View {
         
         HStack{
@@ -30,7 +32,7 @@ struct SubHeaderView: View {
                        alignment: .trailing)
         }
         .font(.caption)
-        .foregroundStyle(Color.theme.secondary)
+        .foregroundStyle(Theme.color.secondaryColor)
     }
 }
 

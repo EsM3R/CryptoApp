@@ -21,13 +21,13 @@ struct CoinLogoView: View {
             
             Text(coin.symbol.uppercased())
                 .font(.title2)
-                .foregroundStyle(Color.theme.accent)
+                .foregroundStyle(Theme.color.accentColor)
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
             
             Text(coin.name)
                 .font(.headline)
-                .foregroundStyle(Color.theme.secondary)
+                .foregroundStyle(Theme.color.secondaryColor)
                 .lineLimit(2)
                 .minimumScaleFactor(0.5)
                 .multilineTextAlignment(.center)
@@ -37,7 +37,7 @@ struct CoinLogoView: View {
         .background {
             RoundedRectangle(cornerRadius: 8).stroke(
                     selectedCoin?.id == coin.id ?
-                    Color.theme.green : Color.clear ,lineWidth: 2)
+                    Theme.color.greenColor : Color.clear ,lineWidth: 2)
         }
         
         

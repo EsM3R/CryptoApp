@@ -6,12 +6,22 @@
 //
 
 import SwiftUI
+ 
 
 struct CoinRowView: View {
     
+    var isShowHoldingColumn : Bool = true
     let coin : CoinModel
+    let amount : Double?
     
-    @State var isShowHoldingColumn : Bool = true
+    init(coin: CoinModel, amount: Double? =  nil  , isShowHoldingColumn : Bool  = true) {
+        self.coin = coin
+        self.amount = amount
+        self.isShowHoldingColumn = isShowHoldingColumn
+        
+    }
+    
+ 
     
     var body: some View {
         HStack(spacing : 0){
@@ -30,18 +40,13 @@ struct CoinRowView: View {
     }
 }
 
-#Preview {
-    CoinRowView(coin: DeveloperPreview.instance.coin)
-}
-
-
 extension CoinRowView {
     
     private var leftColumn : some View{
         HStack(spacing : 6){
             Text("\(coin.rank)")
                 .font(.caption)
-                .foregroundStyle(Color.theme.secondary)
+                .foregroundStyle(Theme.color.secondaryColor)
                 .frame(minWidth: 30)
             
             AsyncImageForCoin(url: coin.image, circleImageSize: 30)
@@ -49,7 +54,7 @@ extension CoinRowView {
             
             Text("\(coin.symbol.uppercased())")
                 .font(.headline)
-                .foregroundStyle(Color.theme.accent)
+                .foregroundStyle(Theme.color.accentColor)
         }
  
     }
@@ -60,7 +65,7 @@ extension CoinRowView {
             Text(coin.currentHoldings?.asPercentString() ?? "")
             
         }
-        .foregroundStyle(Color.theme.accent)
+        .foregroundStyle(Theme.color.accentColor)
     }
     
     private var rightColumn : some View{
