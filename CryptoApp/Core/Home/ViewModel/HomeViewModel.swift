@@ -10,6 +10,8 @@ import SwiftData
 
 @Observable class HomeViewModel{
     
+    var newSearchText : String = ""
+    
     var stats : [StatisticModel] = [
         .init(title: "Title", value: "Value" ,percentChanges: 1),
         .init(title: "Title", value: "Value" ),
@@ -93,6 +95,11 @@ import SwiftData
             coin.symbol.lowercased().contains(lowerCasedSearchText)
         }
         return allFiltered
+    }
+    
+    
+    func removeSearchText(){
+        self.searchText = ""
     }
     
     

@@ -16,27 +16,41 @@ struct AsyncImageForCoin: View {
         AsyncImage(url: URL(string: url)){phase in
             
             switch phase{
-            case .success(let image):
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: circleImageSize, height: circleImageSize)
-                    
+           
+            case .success(let image) :
+            onSuccessImageImage(image: image)
+                                    
             case .empty:
-                defaultImage
+                onFailureImage
             case .failure(_):
-                defaultImage
+                onFailureImage
             @unknown default:
-                defaultImage
+                onFailureImage
             }
             
             
         }
     }
     
-    private var defaultImage : some View {
+}
+extension AsyncImageForCoin {
+    
+    @ViewBuilder
+    private var onFailureImage : some View {
         Circle()
             .frame(width: circleImageSize, height: circleImageSize)
     }
-}
+    
+    
+    @ViewBuilder
+    private func onSuccessImageImage(image : Image) ->  some View {
+            image
+                .resizable()
+                .scaledToFit()
+                .frame(width: circleImageSize, height: circleImageSize)
+        
+   
 
+    }
+
+}

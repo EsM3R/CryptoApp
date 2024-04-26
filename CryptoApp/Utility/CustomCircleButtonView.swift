@@ -11,11 +11,16 @@ struct CustomCircleButtonView: View {
     
     let iconName : String
     
+    private let iconWidth : CGFloat = 50
+    private let iconHeight : CGFloat = 50
+
+    
+    
     var body: some View {
         Image(systemName: iconName)
             .font(.headline)
             .foregroundStyle(Theme.color.accentColor)
-            .frame(width: 50 , height: 50)
+            .frame(width: iconWidth , height: iconHeight)
             .background(Circle().foregroundStyle(Theme.color.backgroundColor))
             .shadow(color : Theme.color.accentColor.opacity(0.2) ,
                     radius: 10 ,

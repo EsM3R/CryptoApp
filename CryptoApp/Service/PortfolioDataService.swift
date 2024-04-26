@@ -30,7 +30,7 @@ class PortfolioDataService {
     
     func updatePortfolio(coin : CoinModel , amount : Double ) {
         
-        if let entitiy
+
     }
 
     
