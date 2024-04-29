@@ -39,8 +39,8 @@ struct SearchBarView: View {
         
                 }
         }
-        .onChange(of: searchText, {
-            self.homeViewModel.searchText = searchText
+        .onChange(of: self.searchText, {
+            self.homeViewModel.searchText = self.searchText
         })
         .font(.headline)
         .padding()

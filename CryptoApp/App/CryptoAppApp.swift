@@ -18,5 +18,7 @@ struct CryptoAppApp: App {
             
            ContentView()
         }
+        .modelContainer(for: PortfolioModel.self)
+    
     }
 }

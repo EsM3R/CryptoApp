@@ -2,7 +2,7 @@
 //  CoinModel.swift
 //  SwiftfulCrypto
 //
-//  Created by Nick Sarno on 5/8/21.
+//  Created by Mehmet Vural on 2.04.2024.
 //
 
 import Foundation
@@ -54,8 +54,7 @@ import Foundation
 import Foundation
 
 
-struct CoinModel: Identifiable, Codable{
-    
+struct CoinModel: Identifiable, Codable {
     let id, symbol, name: String
     let image: String
     let currentPrice: Double

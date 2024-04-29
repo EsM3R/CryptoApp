@@ -9,13 +9,13 @@ import SwiftUI
 
 struct PortfolioNavbarView: View {
     
-    @Environment(\.modelContext) var modelContext
     @Environment(HomeViewModel.self) private var homeViewModel
+    @Environment(PortfolioViewModel.self) private var portfolioViewModel
     @State private var showCheckmark : Bool = false
     @Binding  var selectedCoin : CoinModel?
     @Binding  var quantityText : String
     
-
+    
     var body: some View {
         HStack{
             
@@ -41,19 +41,29 @@ struct PortfolioNavbarView: View {
     }
     
     private func saveButtonPressed(){
-        
-//        guard let selectedCoin else {return}
-    
+
         withAnimation {
             showCheckmark = true
+            addPortfolio()
             removeSelectionCoin()
         }
             
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             showCheckmark = false
         }
         
     }
+    
+    private func addPortfolio(){
+        
+        guard let selectedCoin = selectedCoin else {return}
+        guard let amount = Double(quantityText) else { return }
+        
+        portfolioViewModel.updatePortfolio(coin: selectedCoin, amount: amount)
+        homeViewModel.calcualatePortfolioValue(portfolioCoins: portfolioViewModel.portfolioCoins)
+    
+    }
+    
     private func removeSelectionCoin(){
         selectedCoin =  nil
         homeViewModel.searchText = ""

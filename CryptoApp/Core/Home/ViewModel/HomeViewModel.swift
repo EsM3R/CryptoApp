@@ -16,13 +16,16 @@ import SwiftData
         .init(title: "Title", value: "Value" ,percentChanges: 1),
         .init(title: "Title", value: "Value" ),
         .init(title: "Title", value: "Value" ,percentChanges: nil),
-        .init(title: "Title", value: "Value" ,percentChanges: -1)
     ]
     
+    var myTotalPortfolio : Double = 0
+    var myPortfolioPercentChange : Double = 0
     var allCoins : [CoinModel] = []
-    
+
     private var allStroedCoins : [CoinModel] = []
-        
+    
+    
+    
     var searchText : String = "" {
         didSet{
             if searchText.isEmpty{
@@ -41,9 +44,12 @@ import SwiftData
     
     
     func getAllData(){
-        getAllCoins()
         getMarketData()
+        getAllCoins()
+       
     }
+    
+
     
     func getAllCoins(){
         
@@ -55,7 +61,7 @@ import SwiftData
             }
             
         } onFailure: { error in
-            fatalError("\(error.localizedDescription)")
+            print(error.localizedDescription)
         }
         
   
@@ -67,10 +73,16 @@ import SwiftData
             self.stats = []
             DispatchQueue.main.async {
                 data.data.map { market in
-                    let marketCap = StatisticModel(title: "Market Cap", value: market.marketCap, percentChanges: market.marketCapChangePercentage24HUsd)
-                    let volume = StatisticModel(title: "24h Volume", value: market.volume)
-                    let btcDominance = StatisticModel(title: "BTC Dominance", value: market.btcDominance)
-                    let portfolio = StatisticModel(title: "Portfolio Value", value: "$0.00", percentChanges:0)
+                    let marketCap = StatisticModel(title: "Market Cap", 
+                                                   value: market.marketCap,
+                                                   percentChanges: market.marketCapChangePercentage24HUsd)
+                    let volume = StatisticModel(title: "24h Volume",
+                                                value: market.volume)
+                    let btcDominance = StatisticModel(title: "BTC Dominance", 
+                                                      value: market.btcDominance)
+                    let portfolio = StatisticModel(title: "Portfolio Value",
+                                                   value: self.myTotalPortfolio.asNumberString(),
+                                                   percentChanges:self.myPortfolioPercentChange)
                     
                     self.stats.append(contentsOf: [marketCap ,volume ,  btcDominance , portfolio])
                 }
@@ -83,6 +95,7 @@ import SwiftData
     }
     
     func filterCoins() -> [CoinModel] {
+        
         guard  !searchText.isEmpty else {
             return self.allCoins
         }
@@ -103,5 +116,40 @@ import SwiftData
     }
     
     
+    func getCoinById(portfolioModel : PortfolioModel) -> CoinModel{
+        
+        if let coinModel = self.allCoins.first(where: {  $0.id == portfolioModel.coinId}){
+            return coinModel
+        }else{
+            return DeveloperPreview.instance.coin
+        }
+        
+    }
+    
+    func calcualatePortfolioValue(portfolioCoins: [PortfolioModel]) {
+        
+        portfolioCoins.forEach { coin  in
+            if let coinModel = self.allCoins.first(where: {  $0.id == coin.coinId}){
+                
+                self.myTotalPortfolio += coinModel.currentPrice * coin.amount
+                let currrntValue = coinModel.currentPrice
+                let percentChange = coinModel.priceChangePercentage24H ?? 0  / 100
+                let previousValue = currrntValue / (1 + percentChange)
+                self.myPortfolioPercentChange = previousValue
+            }
+        }
+        
+        self.stats.removeLast()
+        let portfolio = StatisticModel(title: "Portfolio Value",
+                                       value: self.myTotalPortfolio.asNumberString(),
+                                       percentChanges:self.myPortfolioPercentChange)
+        self.stats.append(portfolio)
+       
+       
+      
+    }
+    
+    
+   
     
 }

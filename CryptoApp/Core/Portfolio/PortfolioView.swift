@@ -23,12 +23,10 @@ struct PortfolioView: View {
                                     quantityText: $quantityText)
                 
                 TitleView()
-                
                 SearchBarView()
                 
                 AllCoinLogoViews(selectedCoin: $selectedCoin)
                 
-                                 
                 if let selectedCoin {
                     PortfolioInputView(selectedCoin: selectedCoin,
                                        quantityText: $quantityText)

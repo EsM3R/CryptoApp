@@ -43,7 +43,7 @@ struct CoinRowView: View {
 extension CoinRowView {
     
     private var leftColumn : some View{
-        HStack(spacing : 6){
+        HStack(spacing : 2){
             Text("\(coin.rank)")
                 .font(.caption)
                 .foregroundStyle(Theme.color.secondaryColor)
@@ -56,32 +56,42 @@ extension CoinRowView {
                 .font(.headline)
                 .foregroundStyle(Theme.color.accentColor)
         }
+        .frame(width: UIScreen.main.bounds.width / 3.5 ,
+               alignment: .leading)
+
+        
+
  
     }
     private var centerColumn : some View {
         VStack(alignment: .leading){
-            Text(coin.currentHoldingsValue.asCurrencyWith2Decimals())
+            Text("\((coin.currentPrice * (amount ?? 0.0)).asCurrencyWith2Decimals())")
                 .bold()
-            Text(coin.currentHoldings?.asPercentString() ?? "")
-            
+            Text("\((amount ?? 0.0).asCurrencyWith2Decimals())")
+    
         }
         .foregroundStyle(Theme.color.accentColor)
+        .frame(width: UIScreen.main.bounds.width / 3.5 ,
+               alignment: .leading)
+
+        
+
     }
     
     private var rightColumn : some View{
         
-        VStack(alignment: .trailing){
+        VStack{
             
             Text(coin.currentPrice.asCurrencyWith2Decimals())
                 .bold()
                 
-            
             Text(coin.priceChangePercentage24H?.asPercentString() ?? "")
-                .foregroundStyle(
-                    coin.priceChangePercentage24H ?? 0 >= 0 ?
-                    Color.green : Color.red)
+                .foregroundStyle(coin.priceChangePercentage24H ?? 0 >= 0 ? Color.green : Color.red)
         }
-        .frame(width: UIScreen.main.bounds.width / 3.5  , alignment: .trailing)
+        .frame(width: UIScreen.main.bounds.width / 3.5 ,
+               alignment: .trailing)
+
+        
 
     }
 }

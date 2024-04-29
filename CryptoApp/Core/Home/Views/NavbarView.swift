@@ -42,7 +42,9 @@ struct NavbarView: View {
         HStack{
           
             CustomCircleButtonView(iconName: isShowPortfolio ?
-                                   ShowPortfolio.portfolio.getIconName : ShowPortfolio.livePrices.getIconName)
+                                    ShowPortfolio.portfolio.getIconName :
+                                    ShowPortfolio.livePrices.getIconName)
+            
                 .background(CircleButtonAnimationView(isAnimating: $isShowPortfolio))
                 .onTapGesture {
                     if isShowPortfolio{
@@ -50,6 +52,7 @@ struct NavbarView: View {
                     }
                 }
                 .sheet(isPresented: $showPortfolioSheet, content: {
+
                     PortfolioView()
 //                        .presentationDragIndicator(.hidden)
 //                        .presentationDetents([.medium , .large])
@@ -76,9 +79,8 @@ struct NavbarView: View {
                         isShowPortfolio.toggle()
                     }
                 }
-            
         }
-        
+
     }
 }
  

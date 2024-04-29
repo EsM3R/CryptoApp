@@ -9,16 +9,17 @@ import SwiftUI
 
 struct AllCoinLogoViews: View {
     
-    @Environment(HomeViewModel.self) var homeViewModel
+    @Environment(HomeViewModel.self) private var homeViewModel
     @Binding var selectedCoin : CoinModel?
+    
     var body: some View {
         
         ScrollView(.horizontal , showsIndicators: false) {
             
             LazyHStack{
                 
-                ForEach(homeViewModel.allCoins) { coin in
-                    CoinLogoView(selectedCoin: $selectedCoin, 
+                ForEach(homeViewModel.allCoins ) { coin in
+                    CoinLogoView(selectedCoin: $selectedCoin,
                                  coin: coin)
                         .onTapGesture {
                             self.selectedCoin = coin

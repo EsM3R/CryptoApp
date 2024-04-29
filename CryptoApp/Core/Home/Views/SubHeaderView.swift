@@ -9,7 +9,9 @@ import SwiftUI
 
 struct SubHeaderView: View {
     
+    @Environment(HomeViewModel.self) private var homeViewModel
     @Binding var showPortfolio : Bool
+    
     
     private let coinText : String = "Coin"
     private let priceText : String = "Price"
@@ -20,22 +22,28 @@ struct SubHeaderView: View {
         HStack{
             
             Text(coinText)
+                .frame(width: UIScreen.main.bounds.width / 3.5 ,
+                       alignment: .leading)
+            
             
             Spacer()
             
             if showPortfolio{
                 Text(holdingText)
+                    .frame(width: UIScreen.main.bounds.width / 3.5 ,
+                           alignment: .leading)
+                
             }
-          
+            
             Text(priceText)
-                .frame(width: UIScreen.main.bounds.width / 3.5 ,
-                       alignment: .trailing)
+                
+
+            
         }
         .font(.caption)
         .foregroundStyle(Theme.color.secondaryColor)
     }
 }
-
 #Preview {
     SubHeaderView(showPortfolio: .constant(true))
 }

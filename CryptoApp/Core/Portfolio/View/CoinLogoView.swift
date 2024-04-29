@@ -17,7 +17,7 @@ struct CoinLogoView: View {
         
         VStack(alignment: .center, spacing: nil) {
             
-            AsyncImageForCoin(url: coin.image, circleImageSize: 80)
+            AsyncImageForCoin(url: coin.image, circleImageSize: 48)
             
             Text(coin.symbol.uppercased())
                 .font(.title2)
@@ -32,8 +32,9 @@ struct CoinLogoView: View {
                 .minimumScaleFactor(0.5)
                 .multilineTextAlignment(.center)
         }
-        .frame(width: 100)
+        .frame(width: 55)
         .padding(5)
+        .padding(.horizontal , 6)
         .background {
             RoundedRectangle(cornerRadius: 8).stroke(
                     selectedCoin?.id == coin.id ?
