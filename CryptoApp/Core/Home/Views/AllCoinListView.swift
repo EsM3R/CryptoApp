@@ -16,9 +16,11 @@ struct AllCoinListView: View {
       
             ForEach(homeViewModel.allCoins){ coin in
                 
-                CoinRowView(coin : coin,
-                            isShowHoldingColumn: false)
-                
+                NavigationLink(value: coin) {
+                    CoinRowView(coin : coin,isShowHoldingColumn: false)
+                                    
+                }
+            
             }
             
         }

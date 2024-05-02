@@ -27,7 +27,11 @@ class CoinDataService {
             
             do{
                 let json = try JSONDecoder().decode([CoinModel].self, from: data)
-                onSuccess(json)
+                
+                DispatchQueue.main.async {
+                    onSuccess(json)
+                }
+               
             }catch{
                 onFailure(error)
             }

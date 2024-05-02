@@ -39,14 +39,14 @@ import SwiftData
     
     
     init(){
+        
         getAllData()
     }
     
     
     func getAllData(){
-        getMarketData()
         getAllCoins()
-       
+        getMarketData()
     }
     
 

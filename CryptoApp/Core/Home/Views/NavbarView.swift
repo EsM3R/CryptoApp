@@ -37,6 +37,7 @@ struct NavbarView: View {
     
     @Binding var isShowPortfolio : Bool
     @State private var showPortfolioSheet : Bool = false
+    @Environment(HomeViewModel.self) private var homeViewModel
     
     var body: some View {
         HStack{
@@ -50,6 +51,7 @@ struct NavbarView: View {
                     if isShowPortfolio{
                         showPortfolioSheet.toggle()
                     }
+                    
                 }
                 .sheet(isPresented: $showPortfolioSheet, content: {
 

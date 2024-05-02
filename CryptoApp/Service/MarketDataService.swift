@@ -25,7 +25,11 @@ class MarketDataService {
             
             do{
                 let jsonData = try JSONDecoder().decode(GlobalData.self, from: data)
-                onSuccess(jsonData)
+                
+                DispatchQueue.main.async {
+                    onSuccess(jsonData)
+                }
+               
                 
             }catch{
                 onFailure(error)

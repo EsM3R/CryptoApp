@@ -16,43 +16,50 @@ struct HomeView : View {
     
     var body: some View {
     
-        ZStack{
-            Theme.color.backgroundColor.ignoresSafeArea()
-            
-            VStack{
+        NavigationStack {
+            ZStack{
+                Theme.color.backgroundColor.ignoresSafeArea()
                 
-                NavbarView(isShowPortfolio: $showPortfolio)
-                    .padding(.horizontal)
-                
-                HomeStatsView(showPortfolio: $showPortfolio)
-                    .padding(.horizontal)
-                
-                SearchBarView()
-                    .padding(.horizontal)
-                    .padding(.horizontal)
-                
-                
-                Spacer()
-                
-                SubHeaderView(showPortfolio: $showPortfolio)
-                    .padding(.horizontal)
-                    .padding(.horizontal)
-                
-                
-                
-                if !showPortfolio{
-                    AllCoinListView()
-                        .transition(.move(edge: .leading))
+                VStack{
+                    
+                    NavbarView(isShowPortfolio: $showPortfolio)
+                        .padding(.horizontal)
+                    
+                    HomeStatsView(showPortfolio: $showPortfolio)
+                        .padding(.horizontal)
+                    
+                    SearchBarView()
+                        .padding(.horizontal)
+                        .padding(.horizontal)
+                    
+                    
+                    Spacer()
+                    
+                    SubHeaderView(showPortfolio: $showPortfolio)
+                        .padding(.horizontal)
+                        .padding(.horizontal)
+                    
+                    
+                    
+                    if !showPortfolio{
+                        AllCoinListView()
+                            .transition(.move(edge: .leading))
+                    }
+                    if showPortfolio{
+                        PortfolioCoinListView()
+                            .transition(.move(edge: .trailing))
+                    }
+                    
+                    Spacer()
+                    
                 }
-                if showPortfolio{
-                    PortfolioCoinListView()
-                        .transition(.move(edge: .trailing))
+                .navigationDestination(for: CoinModel.self) { coin  in
+                    DetailView(coin: coin)
                 }
-                
-                Spacer()
-                
             }
+            
         }
+
     }
 }
 
