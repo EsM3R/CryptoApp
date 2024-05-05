@@ -9,7 +9,8 @@ import SwiftUI
 
 struct DetailView: View {
     
-    @State private var detailViewModel : CoinDetailViewModel
+    @State private var detailViewModel  : CoinDetailViewModel
+    @State private var isReadMoreActive : Bool = false
     
     var columns : [GridItem] =  Array(repeating: GridItem(.flexible(),alignment: .leading), count: 2)
         
@@ -27,11 +28,40 @@ struct DetailView: View {
                 ChartView(coin: detailViewModel.coin)
                   
                 
-                Text("OverView")
-                    .font(.title.bold())
-                    .foregroundStyle(Theme.color.accentColor)
-                    .frame(maxWidth: .infinity , alignment: .leading)
+                VStack (spacing:20) {
+                    
+                    Text("OverView")
+                        .font(.title.bold())
+                        .foregroundStyle(Theme.color.accentColor)
+                        .frame(maxWidth: .infinity , alignment: .leading)
+                    
+                    
+                    ZStack {
+                        if let description = detailViewModel.coinDetails?.description?.en {
+                            VStack (alignment : .leading ) {
+                                Text(description)
+                                    .lineLimit(self.isReadMoreActive ? nil  : 3)
+                                
+                                
+                                Button(action: {
+                                    self.isReadMoreActive.toggle()
+                                }, label: {
+                                    Text(isReadMoreActive ? "Less" :  "Read more.." )
+                                        .font(.caption)
+                                        .fontWeight(.bold)
+                                        .padding(.vertical ,4)
+                                })
+                                .tint(Color.blue )
+                            }
+                         
+                        }
+                    }
+                    
+                    
+                }
+              
                 
+    
                 Divider()
                 
                 LazyVGrid(columns: columns ,alignment: .leading , spacing: spacing) {

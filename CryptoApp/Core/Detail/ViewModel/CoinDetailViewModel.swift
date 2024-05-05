@@ -10,7 +10,7 @@ import Foundation
 @Observable
 class CoinDetailViewModel {
     
-    var coinDetais : CoinDetailModel? = nil
+    var coinDetails : CoinDetailModel? = nil
     
     var overwievStats = [StatisticModel]()
     var additionalStats = [StatisticModel]()
@@ -27,7 +27,7 @@ class CoinDetailViewModel {
     func fetchCoin(coin : CoinModel) {
         
         CoinDetailDataService.shared.getCoin(coin: coin) { coin in
-            self.coinDetais = coin
+            self.coinDetails = coin
             
         } onFailure: { error in
             print(error.localizedDescription)
@@ -79,11 +79,11 @@ class CoinDetailViewModel {
         let marketCapChange24HStats = StatisticModel(title: "24h Market Cap Change", value: marketCap, percentChanges: marketCapChange24H)
         
         
-        let blockTime = self.coinDetais?.blockTimeInMinutes ?? 0
+        let blockTime = self.coinDetails?.blockTimeInMinutes ?? 0
         let blockTimeString  = blockTime == 0 ? "n/a" : "\(blockTime)"
         let blockTimeStats = StatisticModel(title: "Block Time", value: blockTimeString)
         
-        let hashing = self.coinDetais?.hashingAlgorithm ?? "n/a"
+        let hashing = self.coinDetails?.hashingAlgorithm ?? "n/a"
 
         let hashingStats = StatisticModel(title: "Hashing Algorithm", value: blockTimeString)
         

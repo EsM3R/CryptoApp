@@ -56,7 +56,9 @@ struct HomeView : View {
                 .navigationDestination(for: CoinModel.self) { coin  in
                     DetailView(coin: coin)
                 }
+      
             }
+       
             
         }
 

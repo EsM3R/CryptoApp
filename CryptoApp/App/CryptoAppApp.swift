@@ -15,8 +15,9 @@ struct CryptoAppApp: App {
     var body: some Scene {
         
         WindowGroup {
+           
+            ContentView()
             
-           ContentView()
         }
         .modelContainer(for: PortfolioModel.self)
     
